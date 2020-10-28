@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+    Home
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/adminDashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/AdminListView.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="container mx-auto">
+            <ul class="list-group list-group-horizontal-sm">
+                {% for i in object_list %}
+                    <li class="list-group-item mx-auto">
+                        <a style="text-decoration: none;" href="{% url 'detail_product' i.slug %}">
+                            <div class="card card-user">
+                                {% if i.image_1 %}
+                                    <img src="{{ i.image_1.url }}" class="card-img-top card-img-top-user" alt="Pic">
+                                {% else %}
+                                    <img src="{% static 'basic/no-image.png' %}" class="card-img-top card-img-top-user" alt="No Image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <p class="card-title card-text-user">{{ i.name }}</p>
+                                    <p class="card-text card-text-user">Rs.{{ i.price }}/-</p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
+                    </ul><ul class="list-group list-group-horizontal-sm">
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

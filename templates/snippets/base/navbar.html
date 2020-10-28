@@ -1,0 +1,28 @@
+{% load static %}
+
+{% url 'home' as home %}
+{% url 'about' as about %}
+{% url 'dashboard' as dashboard %}
+{% url 'login' as login %}
+{% url 'logout' as logout %}
+
+<header>
+    <nav>
+        <div class="logo">AFS</div>
+        <input type="checkbox" id="clicknav">
+        <label for="clicknav" class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+            <li><a class="{% if request.path == home %} active {% endif %}" href="{{ home }}">Home</a></li>
+            <li><a class="{% if request.path == about %} active {% endif %}" href="{{ about }}">About</a></li>
+
+            {% if request.user.is_authenticated %}
+                <li><a class="{% if request.path == dashboard %} active {% endif %}" href="{{ dashboard }}">Dashboard</a></li>
+                <li><a class="{% if request.path == logout %} active {% endif %}" href="{{ logout }}">Logout</a></li>
+            {% else %}
+                <li><a class="{% if request.path == login %} active {% endif %}" href="{{ login }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
